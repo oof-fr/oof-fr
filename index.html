@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>You got your IP Fucked!</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+}
+
+.info {
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div id="container">
+    <h1>Your IP got Fucked!</h1>
+    <div class="info" id="info">Loading…</div>
+</div>
+
+<script>
+fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+        let output = `
+        IP: ${data.ip}<br>
+        Version: ${data.version}<br>
+        City: ${data.city}<br>
+        Region: ${data.region}<br>
+        Region Code: ${data.region_code}<br>
+        Country: ${data.country_name}<br>
+        Country Code: ${data.country}<br>
+        Capital: ${data.country_capital}<br>
+        Continent: ${data.continent_code}<br>
+        Postal: ${data.postal}<br>
+        Latitude: ${data.latitude}<br>
+        Longitude: ${data.longitude}<br>
+        Timezone: ${data.timezone}<br>
+        UTC Offset: ${data.utc_offset}<br>
+        Currency: ${data.currency}<br>
+        Languages: ${data.languages}<br>
+        ASN: ${data.asn}<br>
+        Org: ${data.org}<br>
+        Calling Code: ${data.country_calling_code}<br>
+        In EU: ${data.in_eu}<br>
+        `;
+
+        document.getElementById("info").innerHTML = output;
+    })
+    .catch(() => {
+        document.getElementById("info").textContent = "Failed to load IP data.";
+    });
+</script>
+</body>
+</html>
